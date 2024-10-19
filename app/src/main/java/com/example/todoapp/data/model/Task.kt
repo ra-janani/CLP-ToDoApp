@@ -12,6 +12,8 @@ data class Task(
     val title:String,
     @ColumnInfo(name = "task_description") // table's column name is task_description
     val description:String,
-    val dueDate:Long,
-    val isCompleted:Boolean=false
+    val dueDate: Long = System.currentTimeMillis(), // Default value for dueDate
+    val isCompleted:Boolean=false,
+
 )
+

@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // This enables KAPT
+    id("kotlin-kapt") // Enables KAPT
     id("com.google.dagger.hilt.android")
     alias(libs.plugins.compose.compiler)
+    id("com.google.gms.google-services") // Google services Gradle plugin
 }
 
 android {
@@ -32,19 +33,24 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -53,47 +59,53 @@ android {
 }
 
 dependencies {
-
+    // General dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    val room_version = "2.6.1"
+    implementation(libs.androidx.junit.ktx)
 
+    // Room dependencies
+    val roomVersion = "2.6.1"
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    kapt("androidx.room:room-compiler:$roomVersion") // For Room annotation processing
+    testImplementation(libs.androidx.room.testing) // For Room testing helpers
 
-    implementation ("androidx.room:room-ktx:$rootProject.roomVersion")
-
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:$room_version")
-
-    // optional - Test helpers
-    testImplementation(libs.androidx.room.testing)
-
-//Hilt
+    // Hilt dependencies
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-    //coroutine
+    // Coroutine dependencies
     implementation(libs.kotlinx.coroutines.android)
-// for collectasstate
-    implementation(libs.androidx.lifecycle.runtime.compose)
 
+    // Navigation dependencies
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
+    // Firebase dependencies
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+
+    // WorkManager dependencies
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // Test dependencies
+    testImplementation(libs.junit) // JUnit 4
+    testImplementation(libs.mockito.core) // Mockito core
+    testImplementation(libs.mockito.kotlin) // Mockito-Kotlin integration
+    testImplementation(libs.kotlinx.coroutines.test) // Coroutine testing
+    testImplementation(libs.androidx.core.testing) // For LiveData testing
+
+    // Android instrumentation test dependencies
+    androidTestImplementation(libs.androidx.junit) // Android JUnit
+    androidTestImplementation(libs.androidx.espresso.core) // Espresso for UI testing
+    androidTestImplementation(libs.hilt.android.testing) // Hilt testing
+    kaptAndroidTest(libs.hilt.android.compiler) // KAPT for Hilt in tests
 }
+
 kapt {
     correctErrorTypes = true
 }

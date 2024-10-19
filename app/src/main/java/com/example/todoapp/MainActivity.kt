@@ -4,17 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.todoapp.ui.theme.TaskListScreen
-import com.example.todoapp.ui.theme.ToDoAppTheme
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.todoapp.ui.theme.screens.AddTaskScreen
+import com.example.todoapp.ui.theme.screens.TaskDetailScreen
+import com.example.todoapp.ui.theme.screens.TaskListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,27 +20,42 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ToDoAppTheme {
-                Surface(color = MaterialTheme.colorScheme.background) {
-                    TaskListScreen() // Call your TaskListScreen Composable here
-                }
-            }
+            val navController = rememberNavController() // Create NavController
+            AppNavigation(navController) // Pass NavController to the navigation graph
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ToDoAppTheme {
-        Greeting("Android")
+fun AppNavigation(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "task_list") {
+        composable("task_list") {
+            TaskListScreen(navController) // Pass NavController to your TaskListScreen
+        }
+        composable("add_task") {
+            AddTaskScreen(navController) // Navigate to AddTaskScreen
+        }
+        composable("task_detail/{taskId}") { backStackEntry ->
+            val taskId = backStackEntry.arguments?.getString("taskId")?.toIntOrNull()
+            taskId?.let {
+                TaskDetailScreen(taskId = it, navController = navController)
+            }
+        }
     }
 }
+
+//@Composable
+//fun Greeting(name: String, modifier: Modifier = Modifier) {
+//    Text(
+//        text = "Hello $name!",
+//        modifier = modifier
+//    )
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    ToDoAppTheme {
+//        Greeting("Android")
+//    }
+//}
