@@ -66,6 +66,8 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
     implementation(libs.androidx.junit.ktx)
+    testImplementation(libs.play.services.tasks)
+    testImplementation(libs.junit.junit)
 
     // Room dependencies
     val roomVersion = "2.6.1"
@@ -98,6 +100,9 @@ dependencies {
     testImplementation(libs.mockito.kotlin) // Mockito-Kotlin integration
     testImplementation(libs.kotlinx.coroutines.test) // Coroutine testing
     testImplementation(libs.androidx.core.testing) // For LiveData testing
+    testImplementation (libs.mockito.inline)
+
+
 
     // Android instrumentation test dependencies
     androidTestImplementation(libs.androidx.junit) // Android JUnit

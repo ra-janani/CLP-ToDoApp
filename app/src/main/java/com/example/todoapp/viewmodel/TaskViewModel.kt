@@ -18,7 +18,7 @@ class TaskViewModel @Inject constructor(private val repository: TaskRepository) 
     fun addTask(title: String, description: String) {
         val newTask = Task(title = title, description = description)
         viewModelScope.launch {
-            repository.insertTask(newTask) // Insert new task into the repository (Room database)
+            repository.insertTask(newTask)
         }
     }
 

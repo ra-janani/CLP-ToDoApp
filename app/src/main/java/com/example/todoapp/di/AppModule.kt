@@ -45,8 +45,8 @@ object AppModule {
     fun provideRepository(
         taskDao: TaskDao,
         subtaskDao: SubTaskDao,
-        firestore: FirebaseFirestore // Pass Firestore instance here
+        firestore: FirebaseFirestore
     ): TaskRepository {
-        return TaskRepository(taskDao, subtaskDao, firestore) // Provide the implementation here
+        return TaskRepository(taskDao, subtaskDao, firestore)
     }
 }

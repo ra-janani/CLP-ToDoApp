@@ -30,8 +30,7 @@ class ToDoApp : Application() {
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 // Trigger sync when network becomes available
-                // Make sure to use the sync work request you've created earlier
-                scheduleSyncWork(this@ToDoApp) // Or create a specific WorkRequest for syncing
+                scheduleSyncWork(this@ToDoApp)
             }
         }
 

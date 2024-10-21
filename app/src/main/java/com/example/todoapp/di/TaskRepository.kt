@@ -1,6 +1,5 @@
 package com.example.todoapp.di
 
-import androidx.lifecycle.LiveData
 import com.example.todoapp.data.dao.SubTaskDao
 import com.example.todoapp.data.dao.TaskDao
 import com.example.todoapp.data.model.SubTask

@@ -45,7 +45,7 @@ import com.example.todoapp.viewmodel.TaskViewModel
 @Composable
 fun TaskListScreen(
     navController: NavHostController,
-    viewModel: TaskViewModel = hiltViewModel() // Inject your ViewModel here
+    viewModel: TaskViewModel = hiltViewModel()
 ) {
     val tasks = viewModel.allTasks.collectAsState(initial = emptyList())
     var showDialog by remember { mutableStateOf(false) }
@@ -116,7 +116,7 @@ fun TaskItem(
             .clickable { onTaskClick(task) },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
-        Box(modifier = Modifier.padding(16.dp)) { // Use Box to position delete button
+        Box(modifier = Modifier.padding(16.dp)) {
             // Content of the card
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
@@ -134,90 +134,27 @@ fun TaskItem(
                     )
                 }
 
-                // Description should start from the same point as title
                 Text(
                     text = task.description,
                     style = MaterialTheme.typography.bodyMedium,
                     textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
                     color = if (task.isCompleted) Color.Gray else Color.Black,
-                    modifier = Modifier.padding(start = 50.dp) // Aligns description with title
+                    modifier = Modifier.padding(start = 50.dp)
                 )
             }
 
-            // Align delete button to the bottom right corner
             IconButton(
                 onClick = { onDelete(task) },
                 modifier = Modifier
-                    .align(Alignment.BottomEnd) // Position it at the bottom end (right)
-                    .padding(top = 8.dp) // Optional padding from bottom
+                    .align(Alignment.BottomEnd)
+                    .padding(top = 8.dp)
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_delete),
                     contentDescription = "Delete Task",
-                    tint = Color.Unspecified // This ensures the icon keeps its original color
+                    tint = Color.Unspecified
                 )
             }
         }
     }
 }
-
-
-//fun TaskItem(task: Task, onDelete: (Task) -> Unit, onToggleComplete: (Task) -> Unit) {
-//    Card(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(8.dp),
-//        elevation = CardDefaults.cardElevation(4.dp)
-//    ) {
-//        Column(modifier = Modifier.padding(16.dp)) {
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Checkbox(
-//                    checked = task.isCompleted,
-//                    onCheckedChange = {
-//                        onToggleComplete(task.copy(isCompleted = it)) // Pass updated task to the handler
-//                    }
-//                )
-//                Text(
-//                    text = task.title,
-//                    style = MaterialTheme.typography.titleMedium,
-//                    textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
-//                    color = if (task.isCompleted) Color.Gray else Color.Black,
-//                    modifier = Modifier.weight(1f) // Makes the title take the remaining space
-//
-//                )
-//            }
-//                Text(
-//                    text = task.description,
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
-//                    color = if (task.isCompleted) Color.Gray else Color.Black,
-//                    modifier = Modifier.padding(start = 50.dp) // Aligns description with title
-//
-//                )
-//
-//            // Add delete button/icon here
-//            IconButton(onClick = { onDelete(task) }) {
-//                Icon(
-//                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_delete), // Use your delete icon here
-//                    contentDescription = "Delete Task",
-//                    tint = Color.Unspecified // This ensures the icon keeps its original color
-//                )
-//            }
-//        }
-//    }
-//}
-//@Composable
-//fun TaskItem(task: Task) {
-//    Card(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(8.dp),
-//        elevation = CardDefaults.cardElevation(4.dp)
-//    ) {
-//        Column(modifier = Modifier.padding(16.dp)) {
-//            Text(text = task.title, style = MaterialTheme.typography.titleMedium)
-//            Text(text = task.description, style = MaterialTheme.typography.bodyMedium)
-//            // Add more details as needed
-//        }
-//    }
-//}

@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "task_list") {
         composable("task_list") {
-            TaskListScreen(navController) // Pass NavController to your TaskListScreen
+            TaskListScreen(navController) // Pass NavController to TaskListScreen
         }
         composable("add_task") {
             AddTaskScreen(navController) // Navigate to AddTaskScreen
@@ -43,19 +43,3 @@ fun AppNavigation(navController: NavHostController) {
         }
     }
 }
-
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    ToDoAppTheme {
-//        Greeting("Android")
-//    }
-//}
