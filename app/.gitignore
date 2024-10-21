@@ -1,0 +1,41 @@
+/build
+*.iml
+.gradle
+/local.properties
+/.idea/*
+.DS_Store
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/proguard/
+*.apk
+*.ap_
+*.aab
+/bin/
+/obj/
+/.gradle/
+**/*.gitignor
+assetWizardSettings.xml
+# Ignore Gradle Files
+.gradle/
+build/
+/app/src/main/res/hints
+app/src/main/res/mipmap-*/ic_launcher.xml
+app/src/main/res/mipmap-*/ic_launcher_round.xml
+
+/app/src/main/res/drawable*/ic_launcher_background.xml
+/app/src/main/res/drawable*/ic_launcher_foreground.xml
+
+# Ignore IntelliJ IDEA/Android Studio project files
+.idea/
+
+# Ignore auto-generated files
+app/build/
+
+# Ignore Gradle wrapper and jar files (add wrapper properties if you want)
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# Ignore Android Asset Files (if generated)
+**/mipmap-*/ic_launcher*.webp
